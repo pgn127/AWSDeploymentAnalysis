@@ -2,7 +2,7 @@
 
 ## Team Members
 
-[Fill this in]
+Francisco Flores, Pamela Needle
 
 ## Project proposal
 
