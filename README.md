@@ -6,6 +6,14 @@ Please describe any VM setup required for your project here.
 
 This could include commands to download data from online sources.  (Ideally, you should *not* commit raw data to your repo but instead provide instructions on how to obtain it.)
 
+Currently, the National Vulnerability Database (NVD) reports to recieving about 20 new vulnerabilities per day found in different software, systems, and applications. This leaves a lot of room for cyber criminals to take advantage of these public vulnerabilities. Some of these vulnerabilities are simply ignored by these black-hat hackers, and others are heavilty focused on to attempt to formulate an exploit. This project will be using a collection of vulnerabilities and exploits made from these vulnerabilities to try and make a determination as to how to potentially group vulnerabilities based on:
+
+- Time frame in which vulnerabilities become public exploits
+- Which group of vulnerabilities will most likely lead to an exploit
+- Time frame prediction for a new vulnerabilitiy in a speicifc group to become an exploit
+
+A grouping of vulnerabilities is very important as a secure system is crucial in many cases. Making a heirarchal system to classify vulnerabilities is crucial to many security operators, as it is their job to be right every single time, while a black-hat hacker must be right only once.
+
 ## Getting Started
 Make your own local directory which will hold all of the contents for this project (inluding all scrapers and databases.
 
