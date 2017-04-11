@@ -50,11 +50,15 @@ If the last command does not work, use this one instead:
 	
 Open a mongo session in on terminal with this command
 
-	mongodb
+	mongod
   
-Open another terminla window, run the same command, this will open a mongodb session.
+After this, open another terminal window cd into the path you installed mongodb, and run mongo
 
-If command not regonized, make sure Mongo binaries are installed by running:
+	cd mongodb/
+	./bin/mongo
+	
+
+If these commands not regonized or an error occurs, make sure Mongo binaries are installed by running:
 
 	export PATH=<mongodb-install-directory>/bin:$PATH
 
@@ -63,7 +67,7 @@ Finally, cd into your cloned folder and then run the following command:
 
 	sudo pip3 install -r requirements.txt
 	
-To populate the database, run the following:
+To populate the database, run the following while two sessions of mongod :
 
  	./sbin/db_mgmt.py -p
 	./sbin/db_mgmt_cpe_dictionary.py
