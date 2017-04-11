@@ -9,12 +9,13 @@ This could include commands to download data from online sources.  (Ideally, you
 ## Getting Started
 
 Install homebrew command line:
+
     xcode-select --install
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     
 Next, you will need to clone the following repo into your current directory to populate you directory:
 
-  git clone https://github.com/cve-search/cve-search
+	git clone https://github.com/cve-search/cve-search
 
 # Installation prerequisites:
 Python 3:
