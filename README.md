@@ -90,6 +90,10 @@ Activate the Python virtual env
 
 	./LAUNCH.sh (Run the flask server)
 
+## Using mongodb from cve-search
+run command 'mongod' in one terminal session
+in the other, cd into the mongodb directory and run './bin/mongo' to start a session
+the data is stored in cvedb so switch to that db
 
 
  
