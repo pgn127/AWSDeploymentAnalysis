@@ -73,6 +73,21 @@ Most should be installed, but double check to make sure these packages are also 
 - git
 - libssl-dev
 
+Switch to the directort and run
+
+	./install.sh (install package and dependencies)
+
+	cd config; cp config.cfg.sample config.cfg (copy the sample configuration)
+
+*Change the configuration with your settings in config.cfg.*
+
+Activate the Python virtual env 
+
+	cd app; . ./virtenv/bin/activate
+
+	python create.py (tables creation and populating db)
+
+	./LAUNCH.sh (Run the flask server)
 
 
 
