@@ -6,6 +6,8 @@ Please describe any VM setup required for your project here.
 
 This could include commands to download data from online sources.  (Ideally, you should *not* commit raw data to your repo but instead provide instructions on how to obtain it.)
 
+# Introduction
+
 Currently, the National Vulnerability Database (NVD) reports to recieving about 20 new vulnerabilities per day found in different software, systems, and applications. This leaves a lot of room for cyber criminals to take advantage of these public vulnerabilities. Some of these vulnerabilities are simply ignored by these black-hat hackers, and others are heavilty focused on to attempt to formulate an exploit. This project will be using a collection of vulnerabilities and exploits made from these vulnerabilities to try and make a determination as to how to potentially group vulnerabilities based on:
 
 - Time frame in which vulnerabilities become public exploits
