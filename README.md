@@ -16,7 +16,7 @@ Install homebrew command line:
 Next, you will need to clone the following repo into your current directory to populate you directory:
 
 	git clone https://github.com/cve-search/cve-search
-
+## CVE-Search
 # Installation prerequisites:
 Python 3:
 
@@ -32,9 +32,11 @@ Mongodb:
 	Brew install mongodb
 	Mkdir -p /data/db
 	Sudo chown -R ‘id -un’ /data/db
-	Run the command ‘mongodb’ in one shell
+Open a mongo session in on terminal with this command
+
+	mongodb
   
-In another, run the same command, this will open a mongodb senssion.
+Open another terminla window, run the same command, this will open a mongodb session.
 
 If command not regonized, make sure Mongo binaries are installed by running:
 
@@ -43,12 +45,34 @@ If command not regonized, make sure Mongo binaries are installed by running:
 Replacing install directory with your mongo install directory.
 
 Finally, cd into your cloned folder and then run the following command:
-sudo pip3 install -r requirements.txt
+
+	sudo pip3 install -r requirements.txt
+	
 To populate the database, run the following:
 
  	./sbin/db_mgmt.py -p
 	./sbin/db_mgmt_cpe_dictionary.py
 	./sbin/db_updater.py -c
+
+## CVE-Portal
+
+clone respository into project repository
+
+	git clone https://github.com/CIRCL/cve-portal
+
+cd into that repository and run the following command
+	
+	sudo pip3 install -r requirements.txt
+Most should be installed, but double check to make sure these packages are also installed:
+
+- python-mysqldb
+- libmysqlclient-dev
+- python-dev
+- unzip
+- python-virtualenv
+- git
+- libssl-dev
+
 
 
 
