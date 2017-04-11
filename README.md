@@ -48,6 +48,11 @@ If the last command does not work, use this one instead:
 
 	sudo chmod 0755 /data/db && sudo chown $USER /data/db
 	
+Cd into your cloned folder and run this command to install the rest of the prerequisits:
+
+	cd cve-search
+	sudo pip3 install -r requirements.txt
+	
 Open a mongo session in on terminal with this command
 
 	mongod
@@ -56,23 +61,18 @@ After this, open another terminal window cd into the path you installed mongodb,
 
 	cd mongodb/
 	./bin/mongo
+
+
+
 	
-
-If these commands not regonized or an error occurs, make sure Mongo binaries are installed by running:
-
-	export PATH=<mongodb-install-directory>/bin:$PATH
-
-
-Finally, cd into your cloned folder and then run the following command:
-
-	sudo pip3 install -r requirements.txt
+To populate the database,  cd into the cve-search repository you cloned earlier and run the following while two sessions of mongod :
 	
-To populate the database, run the following while two sessions of mongod :
-
+	cd cve-search/
  	./sbin/db_mgmt.py -p
 	./sbin/db_mgmt_cpe_dictionary.py
 	./sbin/db_updater.py -c
 
+These commands may take a while, but you should see the progress in your mongod terminal
 # CVE-Portal
 ## Installation prerequisites:
 
@@ -89,7 +89,7 @@ Most should be installed, but double check to make sure these packages are also 
 - git
 - libssl-dev
 
-Switch to the directort and run
+Switch to the directory and run
 
 	./install.sh (install package and dependencies)
 
