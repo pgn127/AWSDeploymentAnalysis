@@ -4,8 +4,38 @@ Each week, please spend 5-10 minutes writing a brief status report.  This does n
 
 *Copy the template below for each subsequent week.  Please put the most recent week at the **TOP** of the page.*
 
+## Week 3
+Report for 4/10/17
 
-## Week 1
+What did each project team member do this week?
+
+- *We have been working on system set up and data storage. A significant portion of our time was spent trying to configure our computers to accomodate cve-search. We have run into trouble trying to configure mongodb and therefore needed to spend a good chunk of our time getting more familiar with terminal (modifying PATH -which we are still confused exactly what this is). Pam has been able to set up mongodb and populate it however it is not working on Frankie's system. Work has been evenly divided as all of the research has been done together but we described a more specific division below. 
+
+- *Pam:
+-explore the capabilities of tools we found last week. We cloned the cve-search repo from github which turned out to be significantly more complex and powerful than what we will require for this project. I worked to develop a list of only the necessary capaibilities we will use this tool for:
+  -utilize the mongodb database built by the cve-search tool to store CVEs, CPEs, CWEs, CAPEC, and exploit db data 
+  -set up mongodb (Still trying to run it on frankies system)
+
+
+- *Frankie:
+- still working on setting up mongodb - many conflicts
+- create readme outlining system requirements for projects and set up
+- aggregating a final list of resources that we will use
+
+Provide a rough estimate of the division of labor:
+
+- *Frankie: 50%*
+- *Pam: 50%*
+
+
+What are the team's goals for next week?
+*Get both systems up and running! 
+  -instead of using both cvedb and the redis database we would like to do an ETL so that we can aggregate only the necessary data into a new database where the tables are organized such that we can easily draw links/ connections between CVEs and exploits
+  Currently there is multiple databases containing this information(redis database has 3 that pulls from the cvedb). 
+  Assess the utility of the ranking system and the "Exploitability metrics" provided by the NVD. We would like to to have a data set by next week.
+  
+  
+## Week 2
 
 Report for the week of 3/20/17 to 3/27/17.
 
@@ -24,6 +54,12 @@ Provide a rough estimate of the division of labor:
 What are the team's goals for next week?
 
 *[Brief description]: Our main goal for next week is to figure out where we can effectively store all of this data so we can start parsing through it. Both of our machines currently do not have enough storage, and are about to resort to an external hard drive if needed. We also wish to obtain more data regarding exploits, rather than the massive collection of CVE's we currently have. Although CAPEC database does provide us with this, it may be in our better interest to scrape from exploit-db.com, as classifiers already exist within this site, and is the most up-to-date database for exploits.*
+
+
+## Week 1
+
+project proposal
+
 
 
 
