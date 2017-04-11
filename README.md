@@ -34,7 +34,7 @@ Mongodb:
 
 	Brew update
 	Brew install mongodb
-	Mkdir -p /data/db
+	Mkdir -p /data/db # make sure you have /data/db and **NOT** data/db. It will put the database directory in the wrong place
 	Sudo chown -R ‘id -un’ /data/db
 Open a mongo session in on terminal with this command
 
@@ -47,6 +47,10 @@ If command not regonized, make sure Mongo binaries are installed by running:
 	export PATH=<mongodb-install-directory>/bin:$PATH
 
 Replacing install directory with your mongo install directory.
+
+I this **still** doesnt work, enter this command to set the correct permissions:
+
+	sudo chmod 0755 /data/db && sudo chown $USER /data/db
 
 Finally, cd into your cloned folder and then run the following command:
 
