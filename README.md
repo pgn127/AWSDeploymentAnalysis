@@ -7,6 +7,7 @@ Please describe any VM setup required for your project here.
 This could include commands to download data from online sources.  (Ideally, you should *not* commit raw data to your repo but instead provide instructions on how to obtain it.)
 
 ## Getting Started
+Make your own local directory which will hold all of the contents for this project (inluding all scrapers and databases.
 
 Install homebrew command line:
 
@@ -16,8 +17,11 @@ Install homebrew command line:
 Next, you will need to clone the following repo into your current directory to populate you directory:
 
 	git clone https://github.com/cve-search/cve-search
-## CVE-Search
-# Installation prerequisites:
+	git clone https://github.com/CIRCL/cve-portal
+	
+# CVE-Search
+## Installation prerequisites:
+
 Python 3:
 
     Brew install python3
@@ -54,13 +58,10 @@ To populate the database, run the following:
 	./sbin/db_mgmt_cpe_dictionary.py
 	./sbin/db_updater.py -c
 
-## CVE-Portal
+# CVE-Portal
+## Installation prerequisites:
 
-clone respository into project repository
-
-	git clone https://github.com/CIRCL/cve-portal
-
-cd into that repository and run the following command
+cd into the cve-portal repository and run the following command
 	
 	sudo pip3 install -r requirements.txt
 Most should be installed, but double check to make sure these packages are also installed:
