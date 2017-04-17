@@ -20,6 +20,7 @@ An increasing number of popular web services have been migrating towards hosting
 - Python 3
 - Pytricia (Can be found here: https://github.com/jsommers/pytricia)
 - PostGreSQL
+- Planet Lab API Access 
 - dnsmap (https://code.google.com/archive/p/dnsmap/)
 - Knock Wordlist (https://code.google.com/archive/p/knock/source)
 	
