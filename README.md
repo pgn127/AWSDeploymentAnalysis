@@ -10,21 +10,23 @@ This could include commands to download data from online sources.  (Ideally, you
 
 An increasing number of popular web services have been migrating towards hosting their web services through cloud-computing systems such as Amazon's EC2, Cloudfare, Windows Azure, and many more. For this research project, we will be traversing through a variety of datasets to compute an estimate as to how many popular domains use these cloud-computing systems to host their sites. We will be using the 'Alexa Top 1 Million Websites' dataset as test domains, along with Amazon's publically availible ip-ranges to map each domain to the specified Amazon IP range. From here, we will be able to map each domain to a specified region in which their services are hosted through. Through this research we will be abe to answer the following questions:
 
-	- What percentage of popular websites are hosting their services through the cloud?
-	- In the case of a server outage, which region will have the largest effect on these popular websites?
-	- Is there a specific trend for types of service (E-Commerce, blogging, etc) that belong to the cloud/a specific region in the cloud?
+- What percentage of popular websites are hosting their services through the cloud?
+- In the case of a server outage, which region will have the largest effect on these popular websites?
+- Is there a specific trend for types of service (E-Commerce, blogging, etc) that belong to the cloud/a specific region in the cloud?
 
  
 ## Prerequisites:
 
-	- Python 3
-	- Pytricia (Can be found here: https://github.com/jsommers/pytricia)
-	- PostGreSQL
+- Python 3
+- Pytricia (Can be found here: https://github.com/jsommers/pytricia)
+- PostGreSQL
+- dnsmap (https://code.google.com/archive/p/dnsmap/)
+- Knock Wordlist (https://code.google.com/archive/p/knock/source)
 	
 
 
-## Getting Started
-# Building The Datasets
+# Getting Started
+## Building The Datasets
 
 For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as this is the most recent publically availible dataset year. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing a DNS query of type AXFR (Transfer entire zone file from the master name server to secondary name servers) on each domain. Finally, we complete this dataset by using dnsmap to brute-force guess subdomains using the Knock wordlist. 
 
