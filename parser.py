@@ -14,7 +14,7 @@ def extract_subdomains():
         reader = csv.DictReader(alexa_subdomains, delimiter='#')
         for line in reader:
             try:
-                subdomain_file.write(line['subdomain'])
+                subdomain_file.write(line['subdomain']+"\n")
             except (BrokenPipeError, IOError):
                 pass
         sys.stderr.close()
