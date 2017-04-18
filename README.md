@@ -24,12 +24,25 @@ An increasing number of popular web services have been migrating towards hosting
 - dnsmap (https://code.google.com/archive/p/dnsmap/)
 - Knock Wordlist (https://code.google.com/archive/p/knock/source)
 	
+# Install dig patch
 
+	$ wget ftp://ftp.isc.org/isc/bind9/9.9.3/bind-9.9.3.tar.gz
+	$ tar xf bind-9.9.3.tar.gz
+	$ cd bind-9.9.3
+	$ wget http://wilmer.gaa.st/edns-client-subnet/bind-9.9.3-dig-edns-client-subnet-iana.diff
+Patch the code, configure (without OpenSSL because we only want dig) and compile.
+
+	$ patch -p0 < bind-9.9.3-dig-edns-client-subnet-iana.diff
+	$ ./configure --without-openssl
+	$ make
+Now you will have dig placed in bin/dig. You can try it this way:
+
+	$ ./bin/dig/dig @ns1.google.com www.google.es +client=157.88.0.0/16
 
 # Getting Started
 ## Building The Datasets
 
-For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as Amazon no longer releases this data. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing a DNS query of type AXFR (Transfer entire zone file from the master name server to secondary name servers if allowed) on each domain iteratively using the bash script:
+For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as Amazon no longer releases this data. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing  EDNS queries on each domain iteratively using a patched version of dig:
 
 	- dig example.com axfr
 
