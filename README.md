@@ -29,7 +29,7 @@ An increasing number of popular web services have been migrating towards hosting
 # Getting Started
 ## Building The Datasets
 
-For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as this is the most recent publically availible dataset year. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing a DNS query of type AXFR (Transfer entire zone file from the master name server to secondary name servers if allowed) on each domain iteratively using the bash script:
+For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as Amazon no longer releases this data. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing a DNS query of type AXFR (Transfer entire zone file from the master name server to secondary name servers if allowed) on each domain iteratively using the bash script:
 
 	- dig example.com axfr
 
