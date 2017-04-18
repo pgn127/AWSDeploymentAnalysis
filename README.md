@@ -8,104 +8,40 @@ This could include commands to download data from online sources.  (Ideally, you
 
 # Introduction
 
-Currently, the National Vulnerability Database (NVD) reports to recieving about 20 new vulnerabilities per day found in different software, systems, and applications. This leaves a lot of room for cyber criminals to take advantage of these public vulnerabilities. Some of these vulnerabilities are simply ignored by these black-hat hackers, and others are heavilty focused on to attempt to formulate an exploit. This project will be using a collection of vulnerabilities and exploits made from these vulnerabilities to try and make a determination as to how to potentially group vulnerabilities based on:
+An increasing number of popular web services have been migrating towards hosting their web services through cloud-computing systems such as Amazon's EC2, Cloudfare, Windows Azure, and many more. For this research project, we will be traversing through a variety of datasets to compute an estimate as to how many popular domains use these cloud-computing systems to host their sites. We will be using the 'Alexa Top 1 Million Websites' dataset as test domains, along with Amazon's publically availible ip-ranges to map each domain to the specified Amazon IP range. From here, we will be able to map each domain to a specified region in which their services are hosted through. Through this research we will be abe to answer the following questions:
 
-- Time frame in which vulnerabilities become public exploits
-- Which group of vulnerabilities will most likely lead to an exploit
-- Time frame prediction for a new vulnerabilitiy in a speicifc group to become an exploit
+- What percentage of popular websites are hosting their services through the cloud?
+- In the case of a server outage, which region will have the largest effect on these popular websites?
+- Is there a specific trend for types of service (E-Commerce, blogging, etc) that belong to the cloud/a specific region in the cloud?
 
-A grouping of vulnerabilities is very important as a secure system is crucial in many cases. Making a heirarchal system to classify vulnerabilities is crucial to many security operators, as it is their job to be right every single time, while a black-hat hacker must be right only once.
+ 
+## Prerequisites:
 
-## Getting Started
-Make your own local directory which will hold all of the contents for this project (inluding all scrapers and databases.
+- Python 3
+- Pytricia (Can be found here: https://github.com/jsommers/pytricia)
+- PostGreSQL
+- Planet Lab API Access 
+- dnsmap (https://code.google.com/archive/p/dnsmap/)
+- Knock Wordlist (https://code.google.com/archive/p/knock/source)
+	
 
-Install homebrew command line:
 
-    xcode-select --install
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Getting Started
+## Building The Datasets
+
+For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as this is the most recent publically availible dataset year. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing a DNS query of type AXFR (Transfer entire zone file from the master name server to secondary name servers if allowed) on each domain iteratively using the bash script:
+
+	- dig example.com axfr
+
+Finally, since many websites do not allow zone transfer query, we further exapnd this dataset by using dnsmap to brute-force guess subdomains using the Knock wordlist. 
+
+We run this large dataset through a simple python script, which will perform a reverse dns lookup on each domain and subdomain to map each domain name to public IP.
+
+To map these domains and subdomains to Amazon EC2 instances, we will be using the tool Pytricia, developed by Joel Sommers, to calculate if each domains/subdomains IP falls within an Amazon IP range.
     
-Next, you will need to clone the following repo into your current directory to populate you directory:
 
-	git clone https://github.com/cve-search/cve-search
-	git clone https://github.com/CIRCL/cve-portal
-	
-# CVE-Search
-## Installation prerequisites:
+For all instances found, we will add that to a new dataset containing id, rank, domain, subdomain, Public IP address, Type(of cloud hosting), and region.  
 
-Python 3:
-
-    Brew install python3
-    
-Redis:
-
-    Brew install redis
-
-Mongodb:
-
-	Brew update
-	Brew install mongodb
-	Mkdir -p /data/db # make sure you have /data/db and **NOT** data/db. It will put the database directory in the wrong place
-	Sudo chown -R ‘id -un’ /data/db
-If the last command does not work, use this one instead:
-
-	sudo chmod 0755 /data/db && sudo chown $USER /data/db
-	
-Cd into your cloned folder and run this command to install the rest of the prerequisits:
-
-	cd cve-search
-	sudo pip3 install -r requirements.txt
-	
-Open a mongo session in on terminal with this command
-
-	mongod
-  
-After this, open another terminal window cd into the path you installed mongodb, and run mongo
-
-	cd mongodb/
-	./bin/mongo
-
-
-
-	
-To populate the database,  cd into the cve-search repository you cloned earlier and run the following while two sessions of mongod :
-	
-	cd cve-search/
- 	./sbin/db_mgmt.py -p
-	./sbin/db_mgmt_cpe_dictionary.py
-	./sbin/db_updater.py -c
-
-These commands may take a while, but you should see the progress in your mongod terminal
-# CVE-Portal
-## Installation prerequisites:
-
-cd into the cve-portal repository and run the following command
-	
-	sudo pip3 install -r requirements.txt
-Most should be installed, but double check to make sure these packages are also installed:
-
-- python-mysqldb
-- libmysqlclient-dev
-- python-dev
-- unzip
-- python-virtualenv
-- git
-- libssl-dev
-
-Switch to the directory and run
-
-	./install.sh (install package and dependencies)
-
-	cd config; cp config.cfg.sample config.cfg (copy the sample configuration)
-
-*Change the configuration with your settings in config.cfg.*
-
-Activate the Python virtual env 
-
-	cd app; . ./virtenv/bin/activate
-
-	python create.py (tables creation and populating db)
-
-	./LAUNCH.sh (Run the flask server)
 
 
 
