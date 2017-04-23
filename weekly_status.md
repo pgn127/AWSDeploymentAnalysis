@@ -4,6 +4,26 @@ Each week, please spend 5-10 minutes writing a brief status report.  This does n
 
 *Copy the template below for each subsequent week.  Please put the most recent week at the **TOP** of the page.*
 
+## Week 4
+Report for 4/17/17
+
+What did each project member to this week?
+
+- We both discussed the potential of our previous idea, and found that after consulting with Professor Hay, the idea is nice, but a bit out of the scope of our class, as it deals with mongodb, and other outside information that would potentially hold us back from completion. We have switched our topic to find an accurate measure of how many popular web services use cloud-computing systems for hosting.
+
+**Frankie:**
+- This week we both had to work extremely hard to develop and collect data for a brand new idea. I set up the database that contains all of our pre-collected/unprocessed data in a PosGreSQL database using Lab 3 create.sql as a template. We found that through a patch released of the UNIX **dig** utility, which adds support for EDNS queries, which helped us implement a bash script which goes through each domain in the alexa top 1 million sites and finds all associated subdomains. Pam then built a python script which compares each ip address to all ip-ranges associated with Amazon (from amazon-ip-ranges .csv, converted from a json format, only paying attention to ip_ranges and ignoring ipv6_ranges).
+
+**Pam:**
+- This week we had to split up the work very evenly so that we would reach the deadlines for the mini-presentation and visualizations. This week I built the python script that matches an IP address to an IP range in the formate of IP, followed by an IP mask, using a tool developed by Professor Sommers called Pytricia. This links all of our subdomains to all instances of an Amazon cloud-computing system. 
+
+Provide a rough estimate of the division of labor:
+Pam: 59%
+Frankie: 41%
+
+What are the team's goals for next week?
+- Develop and implement a machine-learning aspect to this project. As of now, we are looking to see if can predict any specific type of web service to use cloud-computing, but would like to go further. This project has been rather heavy on data aquisition and cleaning, so we have had to spend most of our time making sure we have clean and accurate data that we can use within a database. We are just glad that we finally have a working idea that has to do with networks and requires some sort of low level comprehension so we can use this project for later uses (resume, etc).
+
 ## Week 3
 Report for 4/10/17
 

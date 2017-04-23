@@ -16,13 +16,22 @@ An increasing number of popular web services have been migrating towards hosting
 
  
 ## Prerequisites:
-
+- pip
+- ipython3 Kernel
 - Python 3
 - Pytricia (Can be found here: https://github.com/jsommers/pytricia)
 - PostGreSQL
-- Planet Lab API Access 
+- **dig** with EDNS with client-subnet support (see patch instructions below) 
 - dnsmap (https://code.google.com/archive/p/dnsmap/)
 - Knock Wordlist (https://code.google.com/archive/p/knock/source)
+
+# Install Python 3 and the iPython3 kernel for Jupyter Notebook Support
+
+	$ sudo apt-get install python3-pip
+	$ python2 -m pip install ipykernel
+	$ python2 -m ipykernel install --user
+	$ python3 -m pip install ipykernel
+	$ python3 -m ipykernel install --user
 	
 # Install dig patch
 
