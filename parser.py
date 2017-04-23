@@ -44,7 +44,9 @@ def crossref_subdomainip(dns_output_file):
             if line[3]== 'CNAME': #ignore queries that were redirected to cname
                 continue
             subdomain = line[0]
+
             ip = line[1]
+
             if ip in pyt: #if this ip is within an amazon ip range
                 count+=1
                 #what does pyt[ip] show

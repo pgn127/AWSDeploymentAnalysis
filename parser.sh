@@ -34,3 +34,4 @@ echo -e "About to start dns lookups with dig"
 dig -f tempuniq2.txt +noall +answer | awk '$4=="A" {print $1, $5}' | tee newresults.txt
 echo -e "Digging complete"
 #python3 -c 'import parser; parser.crossref_subdomainip(dnslookupsWITHAPPENDED.txt)'
+
