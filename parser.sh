@@ -22,8 +22,15 @@ echo -e "Here is an example of streaming data into a python function:\n\n"
 
 # you can use \ break up a long sequence of unix pipes onto separate lines...
 # just make sure that "\" is the last character on each line
-#head -n 100
-python3 -c 'import parser; parser.extract_subdomains()' > temp.txt
-dig -f temp.txt +noall +answer > dnslookups.txt
+
+#get the ranking and unique subdomains from alexa top1m list
+#awk -F'#' '!seen[$2]++ {print $1, $2}' ALL_subdomains_Alexa_top1m.csv > uniquewithrank.txt
 
 
+#python3 -c 'import parser; parser.extract_subdomains()' > temp.txt
+echo -e "About to start dns lookups with dig"
+#dig -f temp2secondhalf.txt +noall +answer >> dnslookupsWITHAPPENDED.txt
+#dig -f temp.txt +noall +answer | tee dnslookups.txt
+dig -f tempuniq2.txt +noall +answer | awk '$4=="A" {print $1, $5}' | tee newresults.txt
+echo -e "Digging complete"
+#python3 -c 'import parser; parser.crossref_subdomainip(dnslookupsWITHAPPENDED.txt)'
