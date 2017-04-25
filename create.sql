@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS top1mdomains CASCADE;
 CREATE TABLE top1msubdomains (
     alexa_rank integer NOT NULL,
     subdomain text NOT NULL
+    /*ip_address cidr*/
 );
 
 CREATE TABLE top1mdomains (
