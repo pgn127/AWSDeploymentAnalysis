@@ -42,11 +42,10 @@ def crossref_subdomainip():
         for line in reader:
             subdomain = line['subdomain']
             ip = line['ip']
-            if(not subdomain and not ip):
-                if ip in pyt: #if this ip is within an amazon ip range
-                    count+=1
-                    #what does pyt[ip] show
-                    writer.writerow({'rank':'todo','subdomain':subdomain,'subdomainip':ip})
+            if ip in pyt: #if this ip is within an amazon ip range
+                count+=1
+                #what does pyt[ip] show
+                writer.writerow({'rank':'todo','subdomain':subdomain,'subdomainip':ip})
 
 
 
