@@ -16,6 +16,7 @@ An increasing number of popular web services have been migrating towards hosting
 
  
 ## Prerequisites:
+- Vagrant
 - pip
 - ipython3 Kernel
 - Python 3
