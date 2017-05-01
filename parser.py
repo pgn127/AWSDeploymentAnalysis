@@ -40,7 +40,9 @@ def crossref_subdomainip():
 
         count=0 #count the number of ips that are found wihtin an amazon public ip range
         for line in reader:
-            subdomain = line['subdomain']
+
+            subdomain = line['subdomain'][:-1]
+           
             ip = line['ip']
             if ip in pyt: #if this ip is within an amazon ip range
                 count+=1
