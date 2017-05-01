@@ -6,8 +6,6 @@ import json
 import pytricia
 import ipaddress
 
-
-
 pyt = pytricia.PyTricia()
 
 def extract_subdomains():
@@ -41,7 +39,7 @@ def crossref_subdomainip(dns_output_file):
 
         count=0 #count the number of ips that are found wihtin an amazon public ip range
         for line in reader:
-            if line[3]== 'CNAME': #ignore queries that were redirected to cname
+            if not line[1]: #ignore those that have no ip
                 continue
             subdomain = line[0]
 
