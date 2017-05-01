@@ -16,6 +16,7 @@ An increasing number of popular web services have been migrating towards hosting
 
  
 ## Prerequisites:
+- Vagrant
 - pip
 - ipython3 Kernel
 - Python 3
@@ -23,7 +24,7 @@ An increasing number of popular web services have been migrating towards hosting
 - PostGreSQL
 - **dig** with EDNS with client-subnet support (see patch instructions below) 
 - dnsmap (https://code.google.com/archive/p/dnsmap/)
-- Knock Wordlist (https://code.google.com/archive/p/knock/source)
+- Tableau
 
 # Install Python 3 and the iPython3 kernel for Jupyter Notebook Support
 
@@ -47,6 +48,9 @@ Patch the code, configure (without OpenSSL because we only want dig) and compile
 Now you will have dig placed in bin/dig. You can try it this way:
 
 	$ ./bin/dig/dig @ns1.google.com www.google.es +client=157.88.0.0/16
+	
+
+
 
 # Getting Started
 ## Building The Datasets
