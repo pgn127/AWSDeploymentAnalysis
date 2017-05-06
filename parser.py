@@ -33,21 +33,20 @@ def build_pyt():
 def crossref_subdomainip():
     dns_output_file = 'dnsresults1.txt'
     build_pyt()
-    with open(dns_output_file,'r') as dnslookups, open('subdomains.txt','w') as crossref_subdomains:
+    with open(dns_output_file,'r') as dnslookups, open('subdomains.csv','w') as crossref_subdomains:
         reader = csv.DictReader(dnslookups,delimiter=' ', fieldnames=['subdomain','ip'])
-        writer = csv.DictWriter(crossref_subdomains,['rank','subdomain','subdomainip'])
+        writer = csv.DictWriter(crossref_subdomains,['rank','subdomain','subdomainip','region'])
         writer.writeheader()
 
         count=0 #count the number of ips that are found wihtin an amazon public ip range
         for line in reader:
-
             subdomain = line['subdomain'][:-1]
-           
             ip = line['ip']
-            if ip in pyt: #if this ip is within an amazon ip range
+            if ip in pyt: #if this ip is within an amazon ip prefix/range
                 count+=1
                 #what does pyt[ip] show
-                writer.writerow({'rank':'todo','subdomain':subdomain,'subdomainip':ip})
+                #print(pyt[ip])
+                writer.writerow({'rank':'todo','subdomain':subdomain,'subdomainip':ip,'region':pyt[ip]})
 
 
 
