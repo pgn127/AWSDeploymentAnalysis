@@ -68,8 +68,8 @@ For all instances found, we will add that to a new dataset containing id, rank, 
 ## Databases
 We populate posgresql databases in order to create a csv of all subdomains with IPs within an amazon public IP ranges and map these subdomains to their associated ranking.
 
-createdb alexadb
-psql alexadb -f create.sql
+	$ createdb alexadb
+	$ psql alexadb -f create.sql
 
 
 
