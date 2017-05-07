@@ -17,7 +17,7 @@ CREATE TABLE top1msubdomains (
 
 CREATE TABLE dnssubdomains (
   /*rank integer NOT NULL DEFAULT 0,*/
-  rank text NOT NULL DEFAULT 0,
+  rank integer NOT NULL,
   subdomain text NOT NULL,
   subdomainip cidr NOT NULL,
   region text NOT NULL
@@ -42,14 +42,16 @@ COPY dnssubdomains FROM '/vagrant/projectfrankiepam/subdomains.csv' WITH
 ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_pkey PRIMARY KEY (alexa_rank,subdomain);
 
+
+
 /*ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_fkey FOREIGN KEY (alexa_rank) REFERENCES top1mdomains(rank);*/
 
 /*ALTER TABLE ONLY top1mdomains
     ADD CONSTRAINT top1mdom_pkey PRIMARY KEY (rank);*/
 
-ALTER TABLE dnssubdomains DROP COLUMN rank;
-ALTER TABLE dnssubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0;
+/*ALTER TABLE dnssubdomains DROP COLUMN rank;
+ALTER TABLE dnssubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0; */
 
 UPDATE dnssubdomains
 SET rank = top1msubdomains.alexa_rank
