@@ -9,15 +9,13 @@ import ipaddress
 pyt = pytricia.PyTricia()
 
 def extract_subdomains():
-    with open('ALL_subdomains_Alexa_top1m.csv','rt') as alexa_subdomains, sys.stdout as subdomain_file:
-        #open('temp.txt','w')
-        reader = csv.DictReader(alexa_subdomains, delimiter='#')
+    with open('uniquewithrank.csv','r') as ranked_subdomains, open('extractedsubdomains.txt','w') as subdomain_file:
+        reader = csv.DictReader(ranked_subdomains, delimiter=' ',fieldnames=['alexa_rank','subdomain'])
+        writer = csv.DictWriter(subdomain_file)
+
         for line in reader:
-            try:
-                subdomain_file.write(line['subdomain']+"\n")
-            except (BrokenPipeError, IOError):
-                pass
-        sys.stderr.close()
+
+            subdomain_file.write(line['subdomain']+"\n")
 
             #print(line['subdomain'])
 
@@ -33,7 +31,7 @@ def build_pyt():
 def crossref_subdomainip():
     dns_output_file = 'dnsresults1.txt'
     build_pyt()
-    with open(dns_output_file,'r') as dnslookups, open('subdomains.csv','w') as crossref_subdomains:
+    with open(dns_output_file,'rt') as dnslookups, open('subdomains.csv','w') as crossref_subdomains:
         reader = csv.DictReader(dnslookups,delimiter=' ', fieldnames=['subdomain','ip'])
         writer = csv.DictWriter(crossref_subdomains,['rank','subdomain','subdomainip','region'])
         writer.writeheader()
@@ -46,7 +44,7 @@ def crossref_subdomainip():
                 count+=1
                 #what does pyt[ip] show
                 #print(pyt[ip])
-                writer.writerow({'rank':'todo','subdomain':subdomain,'subdomainip':ip,'region':pyt[ip]})
+                writer.writerow({'rank':0,'subdomain':subdomain,'subdomainip':ip,'region':pyt[ip]})
 
 
 
