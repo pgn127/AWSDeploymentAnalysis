@@ -20,13 +20,15 @@ def extract_subdomains():
             #print(line['subdomain'])
 
 def build_pyt():
-    '''build pyt dictionary from the published ips from amazon... so far 1099999
+    '''build pyt dictionary from the published ips from amazon of ips in EC2... so far 1099999
     53155465 more subdomains to test. have completed 1323641'''
     with open('ip-ranges.json','rt') as public_ips:
         jsondata = json.load(public_ips)
 
         for item in jsondata['prefixes']:
-            pyt.insert(item['ip_prefix'], item['region'])  # insert into pyt
+            #if this ip range is for EC2 service add it to the dictionary
+            if(item['service']=='EC2'): #SHOUDL THIS ALSO INCLUDE ==AMAZON
+                pyt.insert(item['ip_prefix'], item['region'])  # insert into pyt
 
 def crossref_subdomainip():
     dns_output_file = 'dnsresults1.txt'
@@ -36,15 +38,33 @@ def crossref_subdomainip():
         writer = csv.DictWriter(crossref_subdomains,['rank','subdomain','subdomainip','region'])
         writer.writeheader()
 
+
+
         count=0 #count the number of ips that are found wihtin an amazon public ip range
         for line in reader:
             subdomain = line['subdomain'][:-1]
             ip = line['ip']
             if ip in pyt: #if this ip is within an amazon ip prefix/range
                 count+=1
-                #what does pyt[ip] show
-                #print(pyt[ip])
                 writer.writerow({'rank':0,'subdomain':subdomain,'subdomainip':ip,'region':pyt[ip]})
+
+
+
+def queried_subs():
+    '''write a file that contains a list of all subdomains that were queried using dig (bc we are not able to query them all)'''
+    dns_output_file = 'dnsresults1.txt'
+
+    with  open(dns_output_file,'rt') as dnslookups, open('allqueriedsubdomains.txt','w') as queries_subdomains:
+        reader = csv.DictReader(dnslookups, delimiter=' ', fieldnames=['subdomain', 'ip'])
+        # write a csv of just the names of the subdomains that were queried
+        writer = csv.DictWriter(queried_subdomains, ['subdomain'])
+        writer.writeheader()
+
+        for line in reader:
+            subdomain = line['subdomain'][:-1]
+            writer.writerow({'subdomain': subdomain})
+
+
 
 
 

@@ -1,12 +1,14 @@
 
-DROP TABLE IF EXISTS top1msubdomains CASCADE;
-DROP TABLE IF EXISTS top1mdomains CASCADE;
-DROP TABLE IF EXISTS dnssubdomains CASCADE;
+/*DROP TABLE IF EXISTS top1msubdomains CASCADE;*/
 
-CREATE TABLE top1msubdomains (
+DROP TABLE IF EXISTS dnssubdomains CASCADE;
+DROP TABLE IF EXISTS cloudsubdomains CASCADE;
+
+
+CREATE TABLE IF NOT EXISTS top1msubdomains (
     alexa_rank integer NOT NULL,
     subdomain text NOT NULL
-    /*ip_address cidr*/
+
 );
 
 /*CREATE TABLE top1mdomains (
@@ -22,6 +24,13 @@ CREATE TABLE dnssubdomains (
   region text NOT NULL
 );
 
+CREATE TABLE cloudsubdomains (
+    rank integer NOT NULL,
+    subdomain text NOT NULL,
+    ip text NOT NULL,
+    region text NOT NULL
+);
+
 COPY top1msubdomains FROM '/vagrant/projectfrankiepam/uniquewithrank.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ' ');
 
@@ -32,9 +41,9 @@ COPY dnssubdomains FROM '/vagrant/projectfrankiepam/subdomains.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ',');
 
 
+/*
 ALTER TABLE ONLY top1msubdomains
-    ADD CONSTRAINT top1msub_pkey PRIMARY KEY (alexa_rank,subdomain);
-
+    ADD CONSTRAINT top1msub_pkey PRIMARY KEY (alexa_rank,subdomain);*/
 
 
 /*ALTER TABLE ONLY top1msubdomains
@@ -46,7 +55,26 @@ ALTER TABLE ONLY top1msubdomains
 /*ALTER TABLE dnssubdomains DROP COLUMN rank;
 ALTER TABLE dnssubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0; */
 
+
+
+
+/*Build subdomain table from only those subdomains in the dns query results that are present in
+the original subdomain list uniquewithrank.csv*/
+
+INSERT INTO cloudsubdomains
+(rank,subdomain,ip,region)
+SELECT dnssubdomains.rank, dnssubdomains.subdomain,dnssubdomains.subdomainip, dnssubdomains.region
+FROM dnssubdomains
+WHERE dnssubdomains.subdomain in (SELECT top1msubdomains.subdomain from top1msubdomains);
+
+
+UPDATE cloudsubdomains
+SET rank = top1msubdomains.alexa_rank
+FROM top1msubdomains
+WHERE top1msubdomains.subdomain=cloudsubdomains.subdomain;
+
+/*
 UPDATE dnssubdomains
 SET rank = top1msubdomains.alexa_rank
 FROM top1msubdomains
-WHERE top1msubdomains.subdomain=dnssubdomains.subdomain;
+WHERE top1msubdomains.subdomain=dnssubdomains.subdomain;*/
