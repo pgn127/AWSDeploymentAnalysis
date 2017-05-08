@@ -33,3 +33,4 @@ echo -e "About to start dns lookups with dig"
 echo -e "Digging complete"
 python3 -c 'import parser; parser.crossref_subdomainip()' #creates subdomains.csv from cross referencing dns results
 
+#python3 -c 'import parser; parser.buildsubdomainlist()'

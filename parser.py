@@ -19,6 +19,17 @@ def extract_subdomains():
 
             #print(line['subdomain'])
 
+def buildsubdomainlist():
+    with open('ALL_subdomains_Alexa_top1m.csv','rt') as alexa_subdomains, open('allsubranks.csv','w') as subdomain_file:
+        reader = csv.DictReader(alexa_subdomains, delimiter='#',fieldnames=['alexa_rank','subdomain','ip_address'])
+        writer = csv.DictWriter(subdomain_file,delimiter=',',fieldnames=['alexa_rank','subdomain'])
+        writer.writeheader()
+
+        for line in reader:
+            writer.writerow({'alexa_rank':line['alexa_rank'],'subdomain':line['subdomain']})
+
+            #print(line['subdomain'])
+
 def build_pyt():
     '''build pyt dictionary from the published ips from amazon of ips in EC2... so far 1099999
     53155465 more subdomains to test. have completed 1323641'''
@@ -27,11 +38,12 @@ def build_pyt():
 
         for item in jsondata['prefixes']:
             #if this ip range is for EC2 service add it to the dictionary
-            if(item['service']=='EC2'): #SHOUDL THIS ALSO INCLUDE ==AMAZON
+            if(item['service']=='EC2' or item['service']=='AMAZON'): #SHOUDL THIS ALSO INCLUDE ==AMAZON
                 pyt.insert(item['ip_prefix'], item['region'])  # insert into pyt
 
 def crossref_subdomainip():
-    dns_output_file = 'dnsresults1.txt'
+
+    dns_output_file = 'finalqueries.txt'
     build_pyt()
     with open(dns_output_file,'rt') as dnslookups, open('subdomains.csv','w') as crossref_subdomains:
         reader = csv.DictReader(dnslookups,delimiter=' ', fieldnames=['subdomain','ip'])
@@ -44,17 +56,19 @@ def crossref_subdomainip():
         for line in reader:
             subdomain = line['subdomain'][:-1]
             ip = line['ip']
+            #print(ip)
             if ip in pyt: #if this ip is within an amazon ip prefix/range
+                #print(ip)
                 count+=1
-                writer.writerow({'rank':0,'subdomain':subdomain,'subdomainip':ip,'region':pyt[ip]})
+                writer.writerow({'rank':0,'subdomain':subdomain,'subdomainip':line['ip'],'region':pyt[ip]})
 
-
+'''
 
 def queried_subs():
-    '''write a file that contains a list of all subdomains that were queried using dig (bc we are not able to query them all)'''
+    #write a file that contains a list of all subdomains that were queried using dig (bc we are not able to query them all)
     dns_output_file = 'dnsresults1.txt'
 
-    with  open(dns_output_file,'rt') as dnslookups, open('allqueriedsubdomains.txt','w') as queries_subdomains:
+    with  open(dns_output_file,'rt') as dnslookups, open('allqueriedsubdomains.csv','w') as queries_subdomains:
         reader = csv.DictReader(dnslookups, delimiter=' ', fieldnames=['subdomain', 'ip'])
         # write a csv of just the names of the subdomains that were queried
         writer = csv.DictWriter(queried_subdomains, ['subdomain'])
@@ -65,8 +79,7 @@ def queried_subs():
             writer.writerow({'subdomain': subdomain})
 
 
-
-
+'''
 
 
 
