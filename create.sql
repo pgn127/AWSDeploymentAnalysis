@@ -37,8 +37,7 @@ CREATE TABLE cloudsubdomains (
 
 
 CREATE TABLE allqueriedalexasubdomains (
-    subdomain text NOT NULL,
-    ip text
+    subdomain text NOT NULL
 );
 
 COPY top1msubdomains FROM '/vagrant/projectfrankiepam/uniquewithrank.csv' WITH
@@ -47,25 +46,21 @@ COPY top1msubdomains FROM '/vagrant/projectfrankiepam/uniquewithrank.csv' WITH
 COPY top1mdomains FROM '/vagrant/projectfrankiepam/top-1mdomains.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ',');
 
-/*COPY dnssubdomains FROM '/vagrant/projectfrankiepam/subdomains.csv' WITH
-(FORMAT csv, HEADER true, DELIMITER ',');*/
-
 COPY cloudsubdomains FROM '/vagrant/projectfrankiepam/ec2cloudsubdomains.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ',');
 
-COPY allqueriedalexasubdomains FROM '/vagrant/projectfrankiepam/uniqdigresults.csv' WITH
+COPY allqueriedalexasubdomains FROM '/vagrant/projectfrankiepam/ALLqueriedalexasubdomains.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ' ');
 
-
+ALTER TABLE allqueriedalexasubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0;
 
 ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_pkey PRIMARY KEY (alexa_rank,subdomain);
 
+/*
 ALTER TABLE ONLY allqueriedalexasubdomains
-    ADD CONSTRAINT queriedsub_pkey PRIMARY KEY (subdomain,ip);
+    ADD CONSTRAINT queriedsub_pkey PRIMARY KEY (rank,subdomain);*/
 
-
-ALTER TABLE allqueriedalexasubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0;
 
 /*ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_fkey FOREIGN KEY (alexa_rank) REFERENCES top1mdomains(rank);*/
