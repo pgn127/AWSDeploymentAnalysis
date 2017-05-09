@@ -41,10 +41,14 @@ def build_pyt():
             if(item['service']=='EC2' or item['service']=='AMAZON'): #SHOUDL THIS ALSO INCLUDE ==AMAZON
                 pyt.insert(item['ip_prefix'], item['region'])  # insert into pyt
 
-def crossref_subdomainip():
-    dns_output_file = 'finalqueries.txt'
+
+def find_ec2_subdomains():
+    '''find the subdomains that have an ip that falls within amazon public ip ranges for EC2'''
+    #dns_output_file = 'finalqueries.txt'
+    dns_output_file = 'uniqdigresults.txt'
+
     build_pyt()
-    with open(dns_output_file,'rt') as dnslookups, open('subdomains.csv','w') as crossref_subdomains:
+    with open(dns_output_file,'rt') as dnslookups, open('ec2cloudsubdomains.csv','w') as crossref_subdomains:
         reader = csv.DictReader(dnslookups,delimiter=' ', fieldnames=['subdomain','ip'])
         writer = csv.DictWriter(crossref_subdomains,['rank','subdomain','subdomainip','region'])
         writer.writeheader()

@@ -1,7 +1,8 @@
 
 DROP TABLE IF EXISTS top1msubdomains CASCADE;
 
-DROP TABLE IF EXISTS dnssubdomains CASCADE;
+DROP TABLE IF EXISTS allqueriedalexasubdomains CASCADE;
+DROP TABLE IF EXISTS top1mdomains CASCADE;
 DROP TABLE IF EXISTS cloudsubdomains CASCADE;
 
 
@@ -17,6 +18,7 @@ CREATE TABLE top1mdomains (
     domain text NOT NULL
 );
 
+/*
 CREATE TABLE dnssubdomains (
   /*rank integer NOT NULL DEFAULT 0,*/
   rank integer NOT NULL,
@@ -24,6 +26,7 @@ CREATE TABLE dnssubdomains (
   subdomainip cidr NOT NULL,
   region text NOT NULL
 );
+*/
 
 CREATE TABLE cloudsubdomains (
     rank integer NOT NULL DEFAULT 0,
@@ -33,6 +36,10 @@ CREATE TABLE cloudsubdomains (
 );
 
 
+CREATE TABLE allqueriedalexasubdomains (
+    subdomain text NOT NULL,
+    ip text
+);
 
 COPY top1msubdomains FROM '/vagrant/projectfrankiepam/uniquewithrank.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ' ');
@@ -40,15 +47,25 @@ COPY top1msubdomains FROM '/vagrant/projectfrankiepam/uniquewithrank.csv' WITH
 COPY top1mdomains FROM '/vagrant/projectfrankiepam/top-1mdomains.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ',');
 
-COPY dnssubdomains FROM '/vagrant/projectfrankiepam/subdomains.csv' WITH
+/*COPY dnssubdomains FROM '/vagrant/projectfrankiepam/subdomains.csv' WITH
+(FORMAT csv, HEADER true, DELIMITER ',');*/
+
+COPY cloudsubdomains FROM '/vagrant/projectfrankiepam/ec2cloudsubdomains.csv' WITH
 (FORMAT csv, HEADER true, DELIMITER ',');
 
+COPY allqueriedalexasubdomains FROM '/vagrant/projectfrankiepam/uniqdigresults.csv' WITH
+(FORMAT csv, HEADER true, DELIMITER ' ');
 
 
 
 ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_pkey PRIMARY KEY (alexa_rank,subdomain);
 
+ALTER TABLE ONLY allqueriedalexasubdomains
+    ADD CONSTRAINT queriedsub_pkey PRIMARY KEY (subdomain,ip);
+
+
+ALTER TABLE allqueriedalexasubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0;
 
 /*ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_fkey FOREIGN KEY (alexa_rank) REFERENCES top1mdomains(rank);*/
