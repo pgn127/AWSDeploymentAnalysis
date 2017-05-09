@@ -1,13 +1,12 @@
 
 DROP TABLE IF EXISTS top1msubdomains CASCADE;
-
 DROP TABLE IF EXISTS allqueriedalexasubdomains CASCADE;
 DROP TABLE IF EXISTS top1mdomains CASCADE;
 DROP TABLE IF EXISTS cloudsubdomains CASCADE;
 
 
 
-CREATE TABLE IF NOT EXISTS top1msubdomains (
+CREATE TABLE top1msubdomains (
     alexa_rank integer NOT NULL,
     subdomain text NOT NULL
 
@@ -18,15 +17,6 @@ CREATE TABLE top1mdomains (
     domain text NOT NULL
 );
 
-/*
-CREATE TABLE dnssubdomains (
-  /*rank integer NOT NULL DEFAULT 0,*/
-  rank integer NOT NULL,
-  subdomain text NOT NULL,
-  subdomainip cidr NOT NULL,
-  region text NOT NULL
-);
-*/
 
 CREATE TABLE cloudsubdomains (
     rank integer NOT NULL DEFAULT 0,
@@ -65,8 +55,6 @@ ALTER TABLE ONLY allqueriedalexasubdomains
 /*ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_fkey FOREIGN KEY (alexa_rank) REFERENCES top1mdomains(rank);*/
 
-/*ALTER TABLE ONLY top1mdomains
-    ADD CONSTRAINT top1mdom_pkey PRIMARY KEY (rank);*/
 
 /*ALTER TABLE dnssubdomains DROP COLUMN rank;
 ALTER TABLE dnssubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0; */

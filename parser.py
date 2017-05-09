@@ -57,7 +57,7 @@ def find_ec2_subdomains():
 
         count=0 #count the number of ips that are found wihtin an amazon public ip range
         for line in reader:
-            subdomain = line['subdomain'][:-1]
+            subdomain = line['subdomain']
             ip = line['ip']
             #print(ip)
             if ip in pyt: #if this ip is within an amazon ip prefix/range
