@@ -42,7 +42,6 @@ def build_pyt():
                 pyt.insert(item['ip_prefix'], item['region'])  # insert into pyt
 
 def crossref_subdomainip():
-
     dns_output_file = 'finalqueries.txt'
     build_pyt()
     with open(dns_output_file,'rt') as dnslookups, open('subdomains.csv','w') as crossref_subdomains:

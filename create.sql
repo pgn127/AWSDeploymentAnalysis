@@ -53,8 +53,8 @@ ALTER TABLE ONLY top1msubdomains
 /*ALTER TABLE ONLY top1msubdomains
     ADD CONSTRAINT top1msub_fkey FOREIGN KEY (alexa_rank) REFERENCES top1mdomains(rank);*/
 
-ALTER TABLE ONLY top1mdomains
-    ADD CONSTRAINT top1mdom_pkey PRIMARY KEY (rank);
+/*ALTER TABLE ONLY top1mdomains
+    ADD CONSTRAINT top1mdom_pkey PRIMARY KEY (rank);*/
 
 /*ALTER TABLE dnssubdomains DROP COLUMN rank;
 ALTER TABLE dnssubdomains ADD COLUMN rank integer NOT NULL DEFAULT 0; */
