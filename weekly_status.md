@@ -4,6 +4,61 @@ Each week, please spend 5-10 minutes writing a brief status report.  This does n
 
 *Copy the template below for each subsequent week.  Please put the most recent week at the **TOP** of the page.*
 
+## Week 6
+Report for 5/8/17
+
+What did each project member to this week?
+
+**Frankie:**
+- Well, my laptop is officially dead. I do not believe it had to do with this project, but it is officially not turning on anymore. Luckily I use **THE CLOUD** to backup my files (Not EC2 though, HA!). The EDNS lookups are proving to produce identical copies of wht dig queries, which is actually expected, since Aaron only found that 3% used more than one region server.  We stopped the dig function after it actually killed my computer and stopped at around 4% of the possible queried, still giving us over 2.5 million entries. We will now translate the notebook into a powerpoint for our presentation and prepare for whatever question Saw may have for us. 
+
+**Pam:**
+- We stopped dig at about 4% done, shocking. It turns out that many subdomains on the list did not exist, and when this happens with dig, it keeps trying for 10 seconds before it times out....per entry. So this time really added up. Completing final visualizations and presentations for tomorrow. A bit hard to reach a conclusion on the data we have, as it at first does not seem like it has a trend. We will look further into this and try to figure out the math behind these numbers. For now, it seems as though we are wrapping up on time.
+
+Provide a rough estimate of the division of labor:
+Pam: 50%
+Frankie: 50%
+
+What are the team's goals for next week?
+- Both must obtain some sleep, Frankie has to get a new laptop, Pam has to take a shower, both have to graduate. 
+
+## Week 6
+Report for 5/1/17
+
+What did each project member to this week?
+
+
+**Frankie:**
+- After a couple of hours of being confused, it is confirmed that all Planet Lab nodes are in a failboot mode, and cannont be utilized for geographical dn queries. This is fine, as we can still use EDNS, but it will most likely take a longer period of time and will not be as accurate. My computer has crashed due to running out of memory 3 times now, and am trying to find a way around this. We decided to take a chunk of data that we have been digging for and use this as an example to start to build our databases off of, since we will most likely stop the digging process closer towards the due date. 
+
+**Pam:**
+- I learned how to maintain the digging command on both computers in certain situations, e.g., losing internet connection, computer shutting off etc. We pulled a sample set of data from what we have already found and are starting to build our database off this and building queries. 
+
+Provide a rough estimate of the division of labor:
+Pam: 50%
+Frankie: 50%
+
+What are the team's goals for next week?
+- Complete visualizations and probably the project since it's due on Tuesday
+
+## Week 5
+Report for 4/24/17
+
+What did each project member to this week?
+
+**Frankie:**
+- This week I began to run the dig command on my computer to resolve all DNS lookups to get associated IPs. This is seemingly going to take a very long time, as the dataset is 2 gigs and moving very slowly. Trying to figure out if dig is the correct utility to be using, as I am aware of others. I started to outline the project python notebook as well.
+
+**Pam:**
+- I also began running dig on my computer while also discussing different approaches with arron, as his goes very deep into the networking components of EC2, while we primarily want to focus on the data science behind it. I did the math for the dig utility and will take way too long to complete, so we are planning on running it as long as we can and using the data we ascertain from this. It should yield around 10% of the data in which Aaron used in his paper. We resorted the subdomain list so the top subdomains were first, as it is outlined that the top subdomains are the primary users for the clouds
+
+Provide a rough estimate of the division of labor:
+Pam: 60%
+Frankie: 40%
+
+What are the team's goals for next week?
+- attempt to find a machine learning component for this project, as it does not have one at this time. We also hope to find a way to use as much data as possible instead of only using some. 
+
 ## Week 4
 Report for 4/17/17
 
