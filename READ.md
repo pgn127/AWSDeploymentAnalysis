@@ -59,8 +59,6 @@ popularity, reducing your need to forecast traffic.
 
 # II. Methodology
 
-
-
 1. Get all possible subdomains of domains listed in Alexa's top 1m
 2. Perform dns look ups using dig for all subdomains
 
@@ -229,8 +227,7 @@ parser.find_ec2_subdomains() #write new file ec2cloudsubdomains.csv
 This function yielded a new file *ec2cloudsubdomains.csv* with columns
 rank,subdomain,subdomainip, and region.  
 <br><br>
-#### Finding Instances of
-Domains using Multiple EC2 Region Servers
+#### Finding Instances of Domains using Multiple EC2 Region Servers
 Performing DNS queries produces
 different results dependent upon your physical location. At a high-level, your
 geographic location will determine where your traffic is sent, thereby
@@ -252,8 +249,7 @@ choose your client IP. For client subnet examples, we use the EC2 region address
 ranges to query from different locations in the world. 
 <br><br>
 
-### Populate
-Database
+### Populate Database
 
 We used posgresql database to organize our subdomain data.  Using this
 file and the previously created *uniquewithrank.txt* file, we populated a psql
@@ -297,8 +293,7 @@ following query:
 this would be the case when the subdomain was not in the alexa subdomain list*/
 Delete from cloudsubdomains where cloudsubdomains.rank=0;
 ```
-#### Create a list
-of domains in Alexa's top 1m that have cloud-using subdomains
+#### Create a list of domains in Alexa's top 1m that have cloud-using subdomains
 Link each
 subdomain with its domain to determine which domains in Alexa's top1m list have
 cloud-using subdomains:
@@ -310,8 +305,7 @@ top.rank group by csd.region, top.domain, csd.subdomain, top.rank order by
 region, rank, domain;
 ```
 <br><br>
-#### Calculate number of subdomains for each
-domain
+#### Calculate number of subdomains for each domain
 ```sql
 select csd.region, top.rank, top.domain, count(csd.subdomain) as
 count 
@@ -350,8 +344,7 @@ Delimiter ',';
 ```  
 <br><br>
 
-### Top 10 (by Alexa rank) EC2-using domains, their total number of subdomains,
-and the number of EC2-using subdomains
+### Top 10 (by Alexa rank) EC2-using domains, their total number of subdomains, and the number of EC2-using subdomains
 
 ```sql
 select rank,count(rank) from
@@ -377,8 +370,7 @@ cloudsubdomains group by rank order by rank ASC limit 10;
 
 <img src="Region_Locations.png">
 
-### What percentage of alexa's top1m domains list have a subdomain thats cloud
-using?
+### What percentage of alexa's top1m domains list have a subdomain thats cloud using?
 In order to calculate the percentage of domains in Alexa's top 1 million
 list have . asubdomain that uses EC2 (the cloud) we had to consider a smaller
 subset of the top 1 million list. 
