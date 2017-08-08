@@ -45,23 +45,7 @@ Now you will have dig placed in bin/dig. You can try it this way:
 
 
 # Getting Started
-## Building The Datasets
-
-For this project, we will be using the Alexa Top 1 Million Websites dataset from February 2013, as Amazon no longer releases this data. From this, we wish to further expand this dataset to find all existing subdomains with each domain, issuing DNS queries on each domain iteratively using a patched version of dig:
-
-
-We run this large dataset through a simple python script, which will perform a  dns lookup on each domain and subdomain to map each domain name to public IP.
-
-To map these domains and subdomains to Amazon EC2 instances, we will be using the tool Pytricia, developed by Joel Sommers, to calculate if each domains/subdomains IP falls within an Amazon IP range.
-    
-
-For all instances found, we will add that to a new dataset containing id, rank, domain, subdomain, Public IP address, Type(of cloud hosting), and region.  
-
-## Databases
-We populate posgresql databases in order to create a csv of all subdomains with IPs within an amazon public IP ranges and map these subdomains to their associated ranking.
-
-	$ createdb alexadb
-	$ psql alexadb -f create.sql
+To view methodology and results, please see `project.ipynb`
 
 
 
