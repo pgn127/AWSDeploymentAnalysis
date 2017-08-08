@@ -62,8 +62,7 @@ popularity, reducing your need to forecast traffic.
 
 
 1. Get all possible subdomains of domains listed in Alexa's top 1m
-2. Perform
-dns look ups using dig for all subdomains
+2. Perform dns look ups using dig for all subdomains
 
 ## Data Acquistion
 
@@ -88,12 +87,12 @@ against amazon IP ranges for these subdomains to get the current cloud-using
 subdomains.**
 
 We created a file called *uniquewithrank.txt* which is a list of
-unique subdomain names and their associated ranking using the following command:
-$ awk -F'#' '!seen[$2]++ {print $1, $2}' ALL_subdomains_Alexa_top1m.csv >
-uniquewithrank.csv
+unique subdomain names and their associated ranking using the following command:  
+```
+$ awk -F'#' '!seen[$2]++ {print $1, $2}' ALL_subdomains_Alexa_top1m.csv > uniquewithrank.csv
+```
     
-The file *uniquewithrank.txt* contains a total of
-34277354 subdomains.
+The file *uniquewithrank.txt* contains a total of 34277354 subdomains.
 
     
 ### DNS Queries with 'dig'
@@ -118,23 +117,16 @@ thing as dig, except the output was more user-friendly than raw, making it more
 difficult to parse. Therefore, we shall use the dig utility. 
 
 
-In order to
-perform the dns queries, we needed a file containing a subdomain to query on
-each line. We sorted the subdomains by increasing rank then extracted the
-subdomain names from the *uniquewithrank.csv* through the command:
+In order to perform the dns queries, we needed a file containing a subdomain to query on each line. We sorted the subdomains by increasing rank then extracted the subdomain names from the *uniquewithrank.csv* through the command:
 
-    $ tail
--n +2 uniquewithrank.txt | sort -n -k1 | cut -d " " -f 2- >
-uniqsortednameonly.txt
+    $ tail -n +2 uniquewithrank.txt | sort -n -k1 | cut -d " " -f 2- > uniqsortednameonly.txt
 
 We passed this file as input to dig to perform DNS
 lookups on each of the subdomains: 
 
-    $ dig -f uniqsortednameonly.txt +noall
-+answer | awk '$4=="A" {print $1, $5}' > alldigresults.txt
+    $ dig -f uniqsortednameonly.txt +noall +answer | awk '$4=="A" {print $1, $5}' > alldigresults.txt
     
-The '+noall
-+answer' makes it so that only the answer is returned, and the rest of the
+The '+noall +answer' makes it so that only the answer is returned, and the rest of the
 command parses the answer to only write the subdomain name along with the
 associate IP address with it. 
 
@@ -156,9 +148,7 @@ eliminated any repeated lines (instances where the distinct subdomain and ip
 pair already exist within the file) and wrote this to a new file
 *uniqdigresults.txt*. This was done using the following command: 
 
-    $ sort
--k1 alldigresults.txt | uniq | awk '{sub(/\.$/,"",$1);print $1, $2}' >
-uniqdigresults.txt
+    $ sort -k1 alldigresults.txt | uniq | awk '{sub(/\.$/,"",$1);print $1, $2}' > uniqdigresults.txt
     
 
 
@@ -198,21 +188,19 @@ million by doing the following:
     1. Extract and sort subdomain names in the
 first column of *totalqueriedsubs.txt*: 
     
-        $ awk '{print $1}'
-totalqueriedsubs.txt | sort > tempnoperiod.txt
+        $ awk '{print $1}' totalqueriedsubs.txt | sort > tempnoperiod.txt
 
-    2. sort the subdomain names
-from the previously made alexa subdomain name list *uniquesortednameonly.txt*
-and save to file  
+   2. sort the subdomain names from the previously made alexa subdomain name list *uniquesortednameonly.txt* and save to file  
     
-        $  sort uniqsortednameonly.txt >
-uniqalexasubdomains.txt
+       ```
+       $ sort uniqsortednameonly.txt > uniqalexasubdomains.txt
+       ```
 
     3. Extract all subdomains present in both sorted
 files *tempnoperiod.txt* and *uniqalexasubdomains.txt*
 
-        $ comm -1 -2
-tempnoperiod.txt uniqalexasubdomains.txt > ALLqueriedalexasubdomains.txt
+        $ comm -1 -2 tempnoperiod.txt uniqalexasubdomains.txt > ALLqueriedalexasubdomains.txt  
+        
 From this new file *ALLqueriedalexasubdomains.txt*, we were able to tell that
 1,490,155 of the 1,532,785 subdomains in *totalqueriedsubs.txt* were Alexa Top1m
 subdomains. In total, there were 34,277,355 Alexa subdomain names in the
@@ -254,11 +242,9 @@ subdomains are utilizing more than one EC2 region instance, we use an EDNS
 query, which allows us to input a custom client IP subnet to designate where we
 are performing a query from in attempt to produce different IP resolutions based
 on geographical location We do this through the following commands:
-$./bin/dig/dig -f ALLqueriedalexasubdomains.txt +noall +answer +client | awk
-'$4=="A {print $1, $5}' > alldigresults.txt
-    $diff --new-line-format=""
---unchanged-line-format="" <(sort alldigresults.txt) <(sort
-ALLqueriedalexasubdomains.txt) > new_IPs.txt
+
+    $ ./bin/dig/dig -f ALLqueriedalexasubdomains.txt +noall +answer +client | awk '$4=="A {print $1, $5}' > alldigresults.txt
+    $ diff --new-line-format="" --unchanged-line-format="" <(sort alldigresults.txt) <(sort ALLqueriedalexasubdomains.txt) > new_IPs.txt
 
 This command will perform the
 patched dig function so that it has EDNS support, giving you the ability to
@@ -278,8 +264,7 @@ amazon's ip ranges), "cloudsubdomains" (a table of all subdomains that are an
 instance of Amazon EC2), and "allqueriedalexadomains" (a table of ALL queried
 alexa top 1m domains) by running the following commands in terminal:
 
-    $
-createdb alexadb
+    $ createdb alexadb
     $ psql alexadb -f create.sql
 
 #### Determine Rank       
@@ -337,8 +322,7 @@ order by region, count, rank, domain;
 <br><br>
 #### Mapping Domains and Subdomain Counts to Region
 ```sql
-with
-regions(region, rank, domain, num_subdomains) as 
+with regions(region, rank, domain, num_subdomains) as 
 (select csd.region, top.rank,
 top.domain, count(csd.subdomain) as count 
 from cloudsubdomains csd,
@@ -380,25 +364,16 @@ cloudsubdomains group by rank order by rank ASC limit 10;
 
 | Rank |       Domain       | # EC2 Subdomains | Total # subdomains queried |
 |------|--------------------|------------------|----------------------------|
-|
-9 | amazon.com         |  29              |                   29
-|   36 |
-fc2.com            |  18              |                   82
-|   40 |
-amazon.co.jp       |   5              |                    5
-|   42 | ask.com
-|   1              |                   28
-|   48 | imdb.com           |   2
-|                    2
-|   60 | amazon.de          |   5              |
-10
-|   76 | adobe.com          |   5              |                   24
-|   79
-| amazon.co.uk       |   7              |                    8
-|   97 |
-huffingtonpost.com |   1              |                    1
-|  105 | cnet.com
-|   1              |                   24
+|   9  |     amazon.com     |  29              |                   29       |
+|   36 |    fc2.com         |  18              |                   82       |
+|   40 |    amazon.co.jp    |   5              |                    5       |
+|   42 | ask.com            |   1              |                   28       |
+|   48 | imdb.com           |   2              |                    2       |
+|   60 | amazon.de          |   5              |                    10      |
+|   76 | adobe.com          |   5              |                   24       |
+|   79 | amazon.co.uk       |   7              |                    8       |
+|   97 | huffingtonpost.com |   1              |                    1       |
+|  105 | cnet.com           |   1              |                   24       |
 
 <img src="Region_Locations.png">
 
@@ -437,7 +412,7 @@ subdomains.
 
 <img src="subdomains_per_region.png">
 
-# IV. Conclusions (1/2 page)
+# IV. Conclusions
 
 Given the fact that the cloud has grown in popularity, we conducted this study
 assuming that there will be a change in cloud-usage among popular sites.
@@ -455,7 +430,7 @@ Based on the results of all EDNS queries, we can safely conclude that not much
 has changed when it comes to EC2 routing when it comes to regions used. We found
 that ~99% of our queried domains and subdomains utilize only one region when
 routing traffic. This is not the best we can do, as Amazon EC2 allows their
-users to route through multiple different regions, @@@@@@. For future studies, I
+users to route through multiple different regions. For future studies, I
 believe that taking more Alexa data, such as majority location of traffic, and
 conduct more locational studies, such as determining if nameserver location is
 closest to the origin location of the majority of traffic, examination of EC2
