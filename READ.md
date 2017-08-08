@@ -1,17 +1,7 @@
 # Data Science Project: Web Service Deployment In EC2
-### Francisco Xavier
-Flores and Pam Needle
+### Francisco Xavier Flores
+*Note: This is converted from .ipynb. To see intended formatting, see project.ipynb*
 
-
-
-If you make changes to your code and rerun a python notebook, your changes may
-not be detected because python is lazy about reloading modules.  The following
-two lines will force reloads.
-
-```python
-%load_ext autoreload
-%autoreload 2
-```
 
 # I. Introduction
 
