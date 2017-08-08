@@ -1,5 +1,5 @@
 # Data Science Project: Web Service Deployment In EC2
-### Pamela Needle
+### Pamela Needle and Francisco Flores
 *Note: This is converted from .ipynb. To see intended formatting, see project.ipynb*
 
 
